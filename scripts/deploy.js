@@ -1,16 +1,15 @@
 async function main() {
-    const HelloWorld = await ethers.getContractFactory("HelloWorld");
-    const hello = await HelloWorld.deploy();
-  
-    await hello.deployed();
-  
-    console.log("HelloWorld deployed to:", hello.address);
-  }
-  
-  main()
-    .then(() => process.exit(0))
-    .catch((error) => {
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
+
+  const SimpleTransfer = await ethers.getContractFactory("SimpleTransfer");
+  const contract = await SimpleTransfer.deploy();
+  console.log("Contract deployed to:", contract.address);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
       console.error(error);
       process.exit(1);
-    });
-  
+  });
